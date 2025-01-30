@@ -24,7 +24,7 @@
         // 1er caso -> si llamamos a la uri de alta
         case "/tattooshop_php/citas/alta":
             $citaController = new CitaController();
-            $requestMethod = $_SERVER["REQUEST_METHOD"]; // va a ser GET o POST
+            $requestMethod = $_SERVER["REQUEST_METHOD"];  
             
             if($requestMethod == "GET") {
                 $citaController->showAltaCita();

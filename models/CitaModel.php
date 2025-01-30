@@ -58,7 +58,7 @@
             try {
                 return $stmt->execute(); // EXECUTE DEVUELVE UN TRUE O FALSE -> SI HA SIDO EXITOSA LA OPERACION O NO
             } catch(Exception $e) {
-                return false;
+                return $e;
             } finally {
                 $this->dbHandler->desconectar(); // USAMOS FINALLY PARA ASEGURARNOS QUE HEMOS CERRADO LA CONEXIÓN A LA BASE DE DATOS
             }
