@@ -18,7 +18,7 @@
             Inicializamos un objeto DBHandler (el de la clase que hemos construído) que va a ser
             el encargado de conectar y desconectar la base de datos
             */
-            $this->dbHandler = new DBHandler("localhost","root","","tattoos_bd","3306");
+            $this->dbHandler = new DBHandler("localhost","root","1234","tattoos_bd","3306");
         }
         /**
          * MÉTODO PARA INSERTAR UN TATUADOR EN LA BASE DE DATOS
@@ -27,7 +27,7 @@
          * @param mixed $email
          * @param mixed $password
          * @param mixed $foto
-         *  @param mixed $creado_en
+         * @param mixed $creado_en
          * @return bool
          */
         public function insertarTatuador($id,$nombre,$email,$password,$foto,$creado_en){
