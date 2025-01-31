@@ -22,30 +22,54 @@
 
     // QUEREMOS LLAMAR A UN CONTROLLER U OTRO DEPENDIENDO DE LA $REQUESTURI
     switch ($requestUri) {
-        // 1er caso -> si llamamos a la uri de alta
+        case "/tattooshop_php/index": case"/tattooshop_php/":
+            // llamamos a la vista de login
+            echo "<h1>LOGIN</h1>";
+            break;
+
         case "/tattooshop_php/citas/alta":
-            $citaController = new CitaController();
-            $requestMethod = $_SERVER["REQUEST_METHOD"];  
-            
-            if($requestMethod == "GET") {
-                $citaController->showAltaCita();
-            } elseif($requestMethod == "POST") {
-                $datos = $_POST ?? [];
-                $citaController->insertCita($datos);
+            session_start();
+            if(isset($_SESSION) || !isset($_SESSION["usuario"])){
+                echo "<h1>USUARIO LOGGEADO</h1>";
+            }else{
+                $citaController = new CitaController();
+                $requestMethod = $_SERVER["REQUEST_METHOD"];  
+                
+                if($requestMethod == "GET") {
+                    $citaController->showAltaCita();
+                } elseif($requestMethod == "POST") {
+                    $datos = $_POST ?? [];
+                    $citaController->insertCita($datos);
+                }
             }
+                
+            
             break;
         case "/tattooshop_php/tatuadores/alta":
-            $tatuadorController=new TatuadorController();
-            $requestMethod = $_SERVER["REQUEST_METHOD"];
+            session_start();
+            if(isset($_SESSION) || !isset($_SESSION["usuario"])){
+                echo "<h1>USUARIO LOGGEADO</h1>";
+            }else{
+                $tatuadorController=new TatuadorController();
+                $requestMethod = $_SERVER["REQUEST_METHOD"];
 
-            if($requestMethod == "GET") {
-                $tatuadorController->showAltaTatuador();
-            } elseif($requestMethod == "POST") {
-                $datos = $_POST ?? [];
-                $tatuadorController->insertTatuador($datos);
+                if($requestMethod == "GET") {
+                    $tatuadorController->showAltaTatuador();
+                } elseif($requestMethod == "POST") {
+                    $datos = $_POST ?? [];
+                    $tatuadorController->insertTatuador($datos);
+                }
             }
 
             break;
+        case "/tattooshop_php/citas/confirmacion":
+            $citaController->mostrarConfirmacion();
+
+            break;  
+        
+        
+
+        
 
         // caso por defecto -> llamamos a 404
         default:
