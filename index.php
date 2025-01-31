@@ -41,9 +41,7 @@
                     $datos = $_POST ?? [];
                     $citaController->insertCita($datos);
                 }
-            }
-                
-            
+            }                      
             break;
         case "/tattooshop_php/tatuadores/alta":
             session_start();
@@ -64,12 +62,8 @@
             break;
         case "/tattooshop_php/citas/confirmacion":
             $citaController->mostrarConfirmacion();
-
             break;  
-        
-        
-
-        
+             
 
         // caso por defecto -> llamamos a 404
         default:
