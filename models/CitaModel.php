@@ -18,7 +18,7 @@
             Inicializamos un objeto DBHandler (el de la clase que hemos construído) que va a ser
             el encargado de conectar y desconectar la base de datos
             */
-            $this->dbHandler = new DBHandler("localhost","root","1234","tattoos_bd","3306");
+            $this->dbHandler = new DBHandler("127.0.0.1","root","1234","tattoos_bd","3306");
         }
         /**
          * MÉTODO PARA INSERTAR UNA CITA EN LA BASE DE DATOS

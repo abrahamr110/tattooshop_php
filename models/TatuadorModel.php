@@ -18,7 +18,7 @@
             Inicializamos un objeto DBHandler (el de la clase que hemos construído) que va a ser
             el encargado de conectar y desconectar la base de datos
             */
-            $this->dbHandler = new DBHandler("localhost","root","1234","tattoos_bd","3306");
+            $this->dbHandler = new DBHandler("127.0.0.1","root","1234","tattoos_bd","3306");
         }
         /**
          * MÉTODO PARA INSERTAR UN TATUADOR EN LA BASE DE DATOS
@@ -34,16 +34,28 @@
 
         // MÉTODO PARA OBTENER TODOS LOS TATUADORES EN LA BASE DE DATOS
         public function getAllTatuadores() {
-            $this->conexion = $this->dbHandler->conectar();
-            $sql = "SELECT nombre FROM " . $this->nombreTabla; // Solo seleccionamos el nombre
-            $resultado = $this->conexion->query($sql); // Ejecutamos la consulta directamente
-        
-            $tatuadores = [];
-            while ($fila = $resultado->fetch_assoc()) {
-                $tatuadores[] = $fila['nombre']; // Almacenamos solo el nombre de cada tatuador
+            try{
+                $this->conexion = $this->dbHandler->conectar();
+                $sql = "SELECT * FROM this.nombreTabla"; // seleccionamos todo
+                $stmt = $this->conexion->prepare($sql);
+
+                $tatuadores = [];
+                
+                if($stmt->execute()){
+                    $resultado = $stmt->get_result();
+                    
+                    while ($fila = $resultado->fetch_assoc()) {
+                        $tatuadores[] = $fila; // Almacenamos solo el nombre de cada tatuador
+                    }
+                    return $tatuadores; // Devolvemos el array de nombres
+                }           
+            
+                return $tatuadores; // Devolvemos el array de nombres
+            }catch(Exception $e){
+                return $e;
+            }finally{
+                $this->dbHandler->desconectar();
             }
-        
-            return $tatuadores; // Devolvemos el array de nombres
         }
 
         // MÉTODO PARA OBTENER EL TATUADOR POR NOMBRE
@@ -65,7 +77,7 @@
             $this->conexion = $this->dbHandler->conectar();
             $sql = "INSERT INTO ".$this->nombreTabla." (id,nombre,email,password,foto,creado_en) VALUES (?,?,?,?,?,?,?)";
             $stmt = $this->conexion->prepare($sql);
-            $stmt->bind_param("issss",$id,$nombre,$email,$password,$foto,$creado_en);
+            $stmt->bind_param("isssd",$id,$nombre,$email,$password,$foto,$creado_en);
 
             try {
                 return $stmt->execute(); // EXECUTE DEVUELVE UN TRUE O FALSE -> SI HA SIDO EXITOSA LA OPERACION O NO
