@@ -22,15 +22,37 @@
 
     // QUEREMOS LLAMAR A UN CONTROLLER U OTRO DEPENDIENDO DE LA $REQUESTURI
     switch ($requestUri) {
-        case "/tattooshop_php/index": case"/tattooshop_php/":
-            // llamamos a la vista de login
-            echo "<h1>LOGIN</h1>";
-            break;
+        case "/tattooshop_php/index":
+            case "/tattooshop_php/login":
+            case "/tattooshop_php/":
+    
+                $usuarioController = new UsuarioController();
+                session_start(); // Para poder usar $_SESSION
+    
+                // MOSTRAMOS LA PAGINA DE LOGIN
+                $requestMethod = $_SERVER["REQUEST_METHOD"]; // va a ser GET o POST
+    
+                if ($requestMethod == "GET") {
+                    $usuarioController->showLogin();
+                } elseif ($requestMethod == "POST") {
+                    $datos = $_POST ?? [];
+                    $usuarioController->doLogin($datos);
+                }
+    
+                break;
 
         case "/tattooshop_php/citas/alta":
             session_start();
             if(isset($_SESSION) || !isset($_SESSION["usuario"])){
-                echo "<h1>USUARIO LOGGEADO</h1>";
+                // MOSTRAMOS LA PAGINA DE LOGIN
+                $requestMethod = $_SERVER["REQUEST_METHOD"]; // va a ser GET o POST
+    
+                if ($requestMethod == "GET") {
+                    $usuarioController->showLogin();
+                } elseif ($requestMethod == "POST") {
+                    $datos = $_POST ?? [];
+                    $usuarioController->doLogin($datos);
+                }
             }else{
                 $citaController = new CitaController();
                 $requestMethod = $_SERVER["REQUEST_METHOD"];  
@@ -46,7 +68,15 @@
         case "/tattooshop_php/tatuadores/alta":
             session_start();
             if(isset($_SESSION) || !isset($_SESSION["usuario"])){
-                echo "<h1>USUARIO LOGGEADO</h1>";
+                // MOSTRAMOS LA PAGINA DE LOGIN
+                $requestMethod = $_SERVER["REQUEST_METHOD"]; // va a ser GET o POST
+    
+                if ($requestMethod == "GET") {
+                    $usuarioController->showLogin();
+                } elseif ($requestMethod == "POST") {
+                    $datos = $_POST ?? [];
+                    $usuarioController->doLogin($datos);
+                }
             }else{
                 $tatuadorController=new TatuadorController();
                 $requestMethod = $_SERVER["REQUEST_METHOD"];
