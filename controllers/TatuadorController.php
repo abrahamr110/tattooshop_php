@@ -57,6 +57,24 @@ class TatuadorController{
             }
         }
 
+        // SI $errores NO ESTÁ EMPTY, SIGNIFICA QUE HA HABIDO ERRORES
+        if (!empty($errores)) {
+            $this->showAltaTatuador($errores);
+        } else {
+            // REGISTRAMOS EL TATUADOR
+            $operacionExitosa = $this->tatuadorModel->insertarTatuador($input_id, $input_nombre, $input_email, $input_password, $input_foto, $input_creado_en);
+
+            if ($operacionExitosa) {
+                // LLAMAR A UNA PÁGINA QUE MUESTRE UN MENSAJE DE ÉXITO
+                require_once "./views/tatuadorViews/TatuadorAltaCorrectaView.php";
+            } else {
+                // LLAMAR A ALGÚN SITIO Y MOSTRAR UN MENSAJE DE ERROR
+                $errores["error_db"] = "Error al insertar el tatuador, intentelo de nuevo más tarde";
+                $this->showAltaTatuador($errores);
+            }
+
+        }
+
     }
 }
 
