@@ -59,12 +59,13 @@
                 </div>
                 <div class="form-group">
                     <label class="fw-lighter text-lowercase text-white" for="input_tatuador">Nombre tatuador</label>
-                    <input type="text"
-                        class="shadow form-control "
-                        id="input_tatuador"
-                        name="input_tatuador"
-                        placeholder="Nombre tatuador">
-                    <?php if (!empty($errores) && isset($errores["error_tatuador"])): ?><small id="tatuadorError" class="form-text text-danger fw-bold"><?= $errores["error_tatuador"] ?></small><?php endif; ?>
+                    <select class="shadow form-control" id="input_tatuador" name="input_tatuador" required>
+                        <option value="">Seleccione un tatuador</option>
+                        <?php foreach ($tatuadores as $tatuador): ?>
+                            <option value="<?= htmlspecialchars($tatuador['nombre']) ?>"><?= htmlspecialchars($tatuador['nombre']) ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                    <?php if (!empty($errores["error_tatuador"])): ?><small class="text-danger fw-bold"><?= $errores["error_tatuador"] ?></small><?php endif; ?>
                 </div>
                 <div class="container__btns-form">
                     <button type="submit" class="btn btn-primary btns-form__btn-enviar">Enviar</button>

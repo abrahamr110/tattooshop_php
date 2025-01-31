@@ -30,6 +30,24 @@
          * @param mixed $creado_en
          * @return bool
          */
+
+
+        // MÉTODO PARA OBTENER TODOS LOS TATUADORES EN LA BASE DE DATOS
+        public function getAllTatuadores() {
+            $this->conexion = $this->dbHandler->conectar();
+            $sql = "SELECT nombre FROM " . $this->nombreTabla; // Solo seleccionamos el nombre
+            $resultado = $this->conexion->query($sql); // Ejecutamos la consulta directamente
+        
+            $tatuadores = [];
+            while ($fila = $resultado->fetch_assoc()) {
+                $tatuadores[] = $fila['nombre']; // Almacenamos solo el nombre de cada tatuador
+            }
+        
+            return $tatuadores; // Devolvemos el array de nombres
+        }
+        
+
+
         public function insertarTatuador($id,$nombre,$email,$password,$foto,$creado_en){
             $this->conexion = $this->dbHandler->conectar();
             $sql = "INSERT INTO ".$this->nombreTabla." (id,nombre,email,password,foto,creado_en) VALUES (?,?,?,?,?,?,?)";
