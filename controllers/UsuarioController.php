@@ -25,7 +25,7 @@
          */
         public function showLogin($errores = []) {
             
-            require_once "./views/citasViews/AltaCitaView.php";
+            require_once "./views/citasViews/LoginView.php";
         }
 
         public function doLogin($datos = []) {

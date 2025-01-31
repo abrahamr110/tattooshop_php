@@ -20,18 +20,22 @@
         <h4><strong>Resumen de la Cita:</strong></h4>
 
         <ul class="list-group">
-            <li class="list-group-item"><strong>Fecha y hora de la cita:</strong> <?= htmlspecialchars($fechaCita) ?></li>
-            <li class="list-group-item"><strong>Descripción:</strong> <?= htmlspecialchars($descripcion) ?></li>
-            <li class="list-group-item"><strong>Nombre del cliente:</strong> <?= htmlspecialchars($nombreCliente) ?></li>
-            <li class="list-group-item"><strong>Nombre del tatuador:</strong> <?= htmlspecialchars($tatuador['nombre']) ?></li>
-            <li class="list-group-item"><strong>Email del tatuador:</strong> <?= htmlspecialchars($tatuador['email']) ?></li>
+            <li class="list-group-item"><strong>Fecha y hora de la cita:</strong> <?= htmlspecialchars($fechaCita ?? "No disponible") ?></li>
+            <li class="list-group-item"><strong>Descripción:</strong> <?= htmlspecialchars($descripcion ?? "No disponible") ?></li>
+            <li class="list-group-item"><strong>Nombre del cliente:</strong> <?= htmlspecialchars($nombreCliente ?? "No disponible") ?></li>
+            <li class="list-group-item"><strong>Nombre del tatuador:</strong> <?= htmlspecialchars($tatuador['nombre'] ?? "No disponible") ?></li>
+            <li class="list-group-item"><strong>Email del tatuador:</strong> <?= htmlspecialchars($tatuador['email'] ?? "No disponible") ?></li>
             <li class="list-group-item"><strong>Foto del tatuador:</strong> 
-                <img src="<?= htmlspecialchars($tatuador['foto']) ?>" alt="Foto del tatuador" class="img-fluid" style="max-height: 200px;">
+                <?php if (!empty($tatuador['foto'])): ?>
+                    <img src="<?= htmlspecialchars($tatuador['foto']) ?>" alt="Foto del tatuador" class="img-fluid" style="max-height: 200px;">
+                <?php else: ?>
+                    <p>No hay foto disponible</p>
+                <?php endif; ?>
             </li>
         </ul>
 
         <div class="mt-3">
-            <a href="/citas/alta" class="btn btn-primary">Registrar otra cita</a>
+            <a href="/tattooshop_php/citas/alta" class="btn btn-primary">Registrar otra cita</a>
         </div>
     </div>
 
@@ -39,3 +43,4 @@
 </body>
 
 </html>
+

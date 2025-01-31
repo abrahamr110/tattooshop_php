@@ -16,6 +16,7 @@
     // Cargamos los controladores que necesitamos.
     require_once "./controllers/CitaController.php";
     require_once "./controllers/TatuadorController.php";
+    require_once "./controllers/UsuarioController.php";
 
     // QUIERO OBTENER LA URL DE LA PETICIÓN
     $requestUri = $_SERVER["REQUEST_URI"] ?? "";
@@ -43,6 +44,7 @@
 
         case "/tattooshop_php/citas/alta":
             session_start();
+            $usuarioController = new UsuarioController();
             if(isset($_SESSION) || !isset($_SESSION["usuario"])){
                 // MOSTRAMOS LA PAGINA DE LOGIN
                 $requestMethod = $_SERVER["REQUEST_METHOD"]; // va a ser GET o POST
@@ -67,6 +69,7 @@
             break;
         case "/tattooshop_php/tatuadores/alta":
             session_start();
+            $usuarioController = new UsuarioController();
             if(isset($_SESSION) || !isset($_SESSION["usuario"])){
                 // MOSTRAMOS LA PAGINA DE LOGIN
                 $requestMethod = $_SERVER["REQUEST_METHOD"]; // va a ser GET o POST
@@ -91,7 +94,10 @@
 
             break;
         case "/tattooshop_php/citas/confirmacion":
-            $citaController->mostrarConfirmacion();
+            $citaController = new CitaController();
+            $citaController->mostrarConfirmacion($_POST);
+
+            
             break;  
              
 

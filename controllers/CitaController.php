@@ -92,9 +92,9 @@
         }
 
         // Función para mostrar la confirmación de la cita
-        private function mostrarConfirmacion($datos) {
+        public function mostrarConfirmacion($datos) {
             // Recuperamos los datos del tatuador
-            $tatuador = $this->tatuadorModel->getTatuadorByName($datos["input_tatuador"]);
+            $tatuador = $this->tatuadorModel->getTatuadorByName($datos["input_tatuador"] ?? "");
 
             // Pasamos los datos a la vista de confirmación
             include "./views/citasViews/Cita_ConfirmacionView.php";
