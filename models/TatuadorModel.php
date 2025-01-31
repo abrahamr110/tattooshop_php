@@ -45,6 +45,25 @@
             }
         }
 
+        public function checkEmailExists($email) {
+            $this->conexion = $this->dbHandler->conectar();
+
+            // Preparar la consulta para verificar si el email existe
+            $sql = "SELECT COUNT(*) as count FROM $this->nombreTabla WHERE email = ?";
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->bind_param("s", $email);
+            $stmt->execute();
+
+            // Obtener el resultado
+            $resultado = $stmt->get_result();
+            $fila = $resultado->fetch_assoc();
+
+            // Cerrar la conexión y devolver si existe o no
+            $this->dbHandler->desconectar();
+
+            return $fila['count'] > 0; // Devuelve true si el email existe, false si no
+        }
+
     }
 
 ?>

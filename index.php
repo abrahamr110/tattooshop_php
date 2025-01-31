@@ -25,19 +25,28 @@
         // 1er caso -> si llamamos a la uri de alta
         case "/tattooshop_php/citas/alta":
             $citaController = new CitaController();
-            // $tatuadorController = new TatuadorController();
             $requestMethod = $_SERVER["REQUEST_METHOD"];  
             
             if($requestMethod == "GET") {
                 $citaController->showAltaCita();
-                // $tatuadorController->showAltaTatuador();
             } elseif($requestMethod == "POST") {
                 $datos = $_POST ?? [];
                 $citaController->insertCita($datos);
             }
-
-            
             break;
+        case "/tattooshop_php/tatuadores/alta":
+            $tatuadorController=new TatuadorController();
+            $requestMethod = $_SERVER["REQUEST_METHOD"];
+
+            if($requestMethod == "GET") {
+                $tatuadorController->showAltaTatuador();
+            } elseif($requestMethod == "POST") {
+                $datos = $_POST ?? [];
+                $tatuadorController->insertTatuador($datos);
+            }
+
+            break;
+
         // caso por defecto -> llamamos a 404
         default:
             echo "<h1>PAGINA NO ENCONTRADA</h1>";
