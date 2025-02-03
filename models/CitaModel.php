@@ -22,14 +22,13 @@
         }
         /**
          * MÉTODO PARA INSERTAR UNA CITA EN LA BASE DE DATOS
-         * @param mixed $id
          * @param mixed $descripcion
          * @param mixed $fechaCita
          * @param mixed $cliente
          * @param mixed $tatuador
          * @return bool
          */
-        public function insertCita($id, $descripcion, $fechaCita, $cliente, $tatuador) {
+        public function insertCita($descripcion, $fechaCita, $cliente, $tatuador) {
 
             // INSERTAR EN LA BASE DE DATOS
             /*
@@ -41,12 +40,12 @@
             // a) Usamos el método conectar() que hemos hecho para obtener la conexión a la BD
             $this->conexion = $this->dbHandler->conectar();
             // b) Escribimos una sentencia SQL tal cual, poniendo ? por cada columna de la tabla de la BD
-            $sql = "INSERT INTO $this->nombreTabla (id, descripcion, fechaCita, cliente, tatuador) VALUES (?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO $this->nombreTabla (descripcion, fechaCita, cliente, tatuador) VALUES (?, ?, ?, ?)";
             // c.1) Realizamos un prepared statement con el método .prepare() del objeto $this->conexion
             $stmt = $this->conexion->prepare($sql);
             // c.2) Intercambiamos las interrogaciones por nuestros valores. Cada s corresponde a una ?, y con la s le decimos que se trata de un string
             // s -> string, d -> double/float, i -> integer
-            $stmt-> bind_param("sssss", $id, $descripcion, $fechaCita, $cliente, $tatuador); // "bindear"/unir cada parámetro a su interrogación. "qué tipo de datos vamos a intercambiar", "los datos en sí"
+            $stmt-> bind_param("ssss",  $descripcion, $fechaCita, $cliente, $tatuador); // "bindear"/unir cada parámetro a su interrogación. "qué tipo de datos vamos a intercambiar", "los datos en sí"
 
             /*
             3º EJECUTAR LA SENTENCIA SQL
@@ -63,6 +62,22 @@
                 $this->dbHandler->desconectar(); // USAMOS FINALLY PARA ASEGURARNOS QUE HEMOS CERRADO LA CONEXIÓN A LA BASE DE DATOS
             }
         }
+        public function getTatuadorByName($nombre) {
+            $this->conexion = $this->dbHandler->conectar();
+            $sql = "SELECT * FROM $this->nombreTabla WHERE nombre = ?";
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->bind_param("s", $nombre);
+            $stmt->execute();
+            $resultado = $stmt->get_result();
+
+            $tatuadores = [];
+
+            while ($fila = $resultado->fetch_assoc()) {
+                $tatuadores[] = $fila; // Almacenamos solo el nombre de cada tatuador
+            }
+            return $tatuadores; // Devolvemos el array de nombres
+        }
+            
     }
 
 ?>

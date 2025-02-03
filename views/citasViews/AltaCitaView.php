@@ -18,15 +18,7 @@
     <main class="body__main">
         <form class="main__form-plantilla <?= isset($errores) && !empty($errores) ? "main__form-plantilla-error" : "" ?>" action="/tattooshop_php/citas/alta" method="post">
             <div class="form-plantilla__container">
-                <div class="form-group">
-                    <label class="fw-lighter text-lowercase text-white" for="input_id">Id</label>
-                    <input type="text"
-                        class="shadow form-control "
-                        id="input_id" name="input_id"
-                        aria-describedby="id"
-                        placeholder="Introduce el id">
-                    <?php if (!empty($errores) && isset($errores["error_id"])): ?><small id="idError" class="form-text text-danger fw-bold"><?= $errores["error_id"] ?></small><?php endif; ?>
-                </div>
+                
                 <div class="form-group">
                     <label class="fw-lighter text-lowercase text-white" for="input_descripcion">Descripcion</label>
                     <input type="text"

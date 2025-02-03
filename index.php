@@ -92,14 +92,7 @@
                 }
             // }
 
-            break;
-        case "/tattooshop_php/citas/confirmacion":
-            $citaController = new CitaController();
-            $citaController->mostrarConfirmacion($_POST);
-
-            
-            break;  
-             
+            break;             
 
         // caso por defecto -> llamamos a 404
         default:

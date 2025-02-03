@@ -32,7 +32,6 @@
         public function insertCita($datos = []) {
 
             // EXTRAER LOS DATOS DEL FORMULARIO Y ALMACENARLOS EN VARIABLES
-            $input_id = $datos["input_id"] ?? "";
             $input_descripcion = $datos["input_descripcion"] ?? "";
             $input_fecha_cita = $datos["input_fecha_cita"] ?? "";
             $input_cliente = $datos["input_cliente"] ?? "";
@@ -40,12 +39,10 @@
 
             // COMPROBAMOS SI LOS DATOS DEL FORMULARIO SON CORRECTOS -> SI NO VIENEN VACIOS
             $errores = [];
-            if($input_id == "" || $input_descripcion == "" || $input_fecha_cita == "" || $input_cliente == "" || $input_tatuador == "" ) {
+            if( $input_descripcion == "" || $input_fecha_cita == "" || $input_cliente == "" || $input_tatuador == "" ) {
 
                 // COMPROBAMOS QUÉ CAMPO ESTÁ VACÍO Y LO AÑADÁIS A UN ARRAY DE ERRORES
-                if($input_id == "") {
-                    $errores["error_id"] = "El campo id es obligatorio";
-                }
+                
 
                 if($input_descripcion == "") {
                     $errores["error_descripcion"] = "El campo descripcion es obligatorio";
@@ -75,12 +72,18 @@
                 // ¿A QUÉ CLASE LLAMAMOS? -> CitaModel.php
                 // ¿A QUÉ MÉTODO DE LA CLASE LLAMAMOS? -> insertCita($datosDeLaCita)
                 $fecha_cita_formatted = date('Y-m-d H:i:s', strtotime($input_fecha_cita));
-                $operacionExitosa = $this->citaModel->insertCita($input_id, $input_descripcion, $fecha_cita_formatted, $input_cliente, $input_tatuador);
+                $operacionExitosa = $this->citaModel->insertCita($input_descripcion, $fecha_cita_formatted, $input_cliente, $input_tatuador);
 
 
                 if($operacionExitosa) {
                     // LLAMAR A UNA PÁGINA QUE MUESTRE UN MENSAJE DE ÉXITO
-                    require_once "./views/citasViews/AltaCitaCorrectaView.php";
+
+                    $tatuador_info=$this->tatuadorModel->getTatuadorByName($input_tatuador)[0];
+                    echo $input_tatuador;
+                    echo json_encode($tatuador_info);
+                    
+                    require_once "./views/citasViews/Cita_ConfirmacionView.php";
+                    
                 } else {
                     // LLAMAR A ALGÚN SITIO Y MOSTRAR UN MENSAJE DE ERROR
                     $errores["error_db"] = "Error al insertar la cita, intentelo de nuevo más tarde";
@@ -91,14 +94,14 @@
 
         }
 
-        // Función para mostrar la confirmación de la cita
-        public function mostrarConfirmacion($datos) {
-            // Recuperamos los datos del tatuador
+        // // Función para mostrar la confirmación de la cita
+        // public function mostrarConfirmacion($datos) {
+        //     // Recuperamos los datos del tatuador
             
 
-            // Pasamos los datos a la vista de confirmación
-            include "./views/citasViews/Cita_ConfirmacionView.php";
-        }
+        //     // Pasamos los datos a la vista de confirmación
+        //     include "./views/citasViews/Cita_ConfirmacionView.php";
+        // }
     }
 
 ?>

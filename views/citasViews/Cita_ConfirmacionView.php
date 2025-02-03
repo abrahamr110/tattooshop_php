@@ -20,14 +20,14 @@
         <h4><strong>Resumen de la Cita:</strong></h4>
 
         <ul class="list-group">
-            <li class="list-group-item"><strong>Fecha y hora de la cita:</strong> <?= htmlspecialchars($fechaCita ?? "No disponible") ?></li>
-            <li class="list-group-item"><strong>Descripción:</strong> <?= htmlspecialchars($descripcion ?? "No disponible") ?></li>
-            <li class="list-group-item"><strong>Nombre del cliente:</strong> <?= htmlspecialchars($nombreCliente ?? "No disponible") ?></li>
-            <li class="list-group-item"><strong>Nombre del tatuador:</strong> <?= htmlspecialchars($tatuador['nombre'] ?? "No disponible") ?></li>
-            <li class="list-group-item"><strong>Email del tatuador:</strong> <?= htmlspecialchars($tatuador['email'] ?? "No disponible") ?></li>
+            <li class="list-group-item"><strong>Fecha y hora de la cita:</strong> <?= htmlspecialchars($input_fecha_cita ?? "No disponible") ?></li>
+            <li class="list-group-item"><strong>Descripción:</strong> <?= htmlspecialchars($input_descripcion ?? "No disponible") ?></li>
+            <li class="list-group-item"><strong>Nombre del cliente:</strong> <?= htmlspecialchars($input_cliente ?? "No disponible") ?></li>
+            <li class="list-group-item"><strong>Nombre del tatuador:</strong> <?= htmlspecialchars($tatuador_info['nombre'] ?? "No disponible") ?></li>
+            <li class="list-group-item"><strong>Email del tatuador:</strong> <?= htmlspecialchars($tatuador_info['email'] ?? "No disponible") ?></li>
             <li class="list-group-item"><strong>Foto del tatuador:</strong> 
-                <?php if (!empty($tatuador['foto'])): ?>
-                    <img src="<?= htmlspecialchars($tatuador['foto']) ?>" alt="Foto del tatuador" class="img-fluid" style="max-height: 200px;">
+                <?php if (!empty($tatuador_info['foto'])): ?>
+                    <img src="<?= htmlspecialchars($tatuador_info['foto']) ?>" alt="Foto del tatuador" class="img-fluid" style="max-height: 200px;">
                 <?php else: ?>
                     <p>No hay foto disponible</p>
                 <?php endif; ?>

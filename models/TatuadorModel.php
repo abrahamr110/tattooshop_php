@@ -58,16 +58,21 @@
         }
 
         // MÉTODO PARA OBTENER EL TATUADOR POR NOMBRE
+
         public function getTatuadorByName($nombre) {
             $this->conexion = $this->dbHandler->conectar();
-            $sql = "SELECT * FROM " . $this->nombreTabla . " WHERE nombre = ?";
+            $sql = "SELECT * FROM $this->nombreTabla WHERE nombre = ?";
             $stmt = $this->conexion->prepare($sql);
             $stmt->bind_param("s", $nombre);
             $stmt->execute();
             $resultado = $stmt->get_result();
-        
-            // Obtener la información del tatuador
-            return $resultado->fetch_assoc();
+
+            $tatuadores = [];
+
+            while ($fila = $resultado->fetch_assoc()) {
+                $tatuadores[] = $fila; // Almacenamos solo el nombre de cada tatuador
+            }
+            return $tatuadores; // Devolvemos el array de nombres
         }
         
 
@@ -86,6 +91,7 @@
                 $this->dbHandler->desconectar(); // USAMOS FINALLY PARA ASEGURARNOS QUE HEMOS CERRADO LA CONEXIÓN A LA BASE DE DATOS
             }
         }
+
 
         public function checkEmailExists($email) {
             $this->conexion = $this->dbHandler->conectar();
