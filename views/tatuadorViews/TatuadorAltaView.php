@@ -4,77 +4,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./public/css/styles_formularioPlantilla.css">
+    <link rel="stylesheet" href="../public/css/citasStyles/styles_altaCita.css">
     <!-- BOOTSTRAP -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <!-- FLATPICKR -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <title>Alta</title>
+    <title>Alta Tatuador</title>
 </head>
 
 <body>
 
     <main class="body__main">
-        <form class="main__form-plantilla" action="****CAMBIAR ACTION*****" method="post">
+        <form class="main__form-plantilla <?= isset($errores) && !empty($errores) ? "main__form-plantilla-error" : "" ?>" action="/tattooshop_php/tatuadores/alta" method="post">
             <div class="form-plantilla__container">
                 <div class="form-group">
-                    <label for="input_id">Id</label>
+                    <label class="fw-lighter text-lowercase text-white" for="nombre">Nombre</label>
                     <input type="text"
                         class="shadow form-control "
-                        id="input_id" name="input_id"
-                        aria-describedby="id"
-                        placeholder="Introduce el id">
-                </div>
-                <div class="form-group">
-                    <label for="input_nombre">Nombre</label>
-                    <input type="text"
-                        class="shadow form-control "
-                        id="input_nombre"
-                        name="input_nombre"
+                        id="nombre" name="nombre"
                         aria-describedby="nombre"
-                        placeholder="Introduce tu nombre">
+                        placeholder="Introduce el nombre">
+                    <?php if (!empty($errores) && isset($errores["error_nombre"])): ?><small id="nombreError" class="form-text text-danger fw-bold"><?= $errores["error_nombre"] ?></small><?php endif; ?>
                 </div>
                 <div class="form-group">
-                    <label for="input_descripcion">Email</label>
+                    <label class="fw-lighter text-lowercase text-white" for="email">Email</label>
                     <input type="text"
                         class="shadow form-control "
-                        id="input_email"
-                        name="input_email"
+                        id="email" name="email"
                         aria-describedby="email"
-                        placeholder="Introduce tu email">
+                        placeholder="Introduce el email">
+                    <?php if (!empty($errores) && isset($errores["error_email"])): ?><small id="emailError" class="form-text text-danger fw-bold"><?= $errores["error_email"] ?></small><?php endif; ?>
                 </div>
                 <div class="form-group">
-                    <label for="input_password">Contraseña</label>
-                    <input type="text"
+                    <label class="fw-lighter text-lowercase text-white" for="password">Contraseña</label>
+                    <input type="password"
                         class="shadow form-control "
-                        id="input_password"
-                        name="input_fecha_cita"
+                        id="password" name="password"
                         aria-describedby="password"
-                        placeholder="Introduce tu contraseña">
+                        placeholder="Introduce la contraseña">
+                    <?php if (!empty($errores) && isset($errores["error_password"])): ?><small id="passwordError" class="form-text text-danger fw-bold"><?= $errores["error_password"] ?></small><?php endif; ?>
                 </div>
                 <div class="form-group">
-                    <label for="input_foto">Foto</label>
+                    <label class="fw-lighter text-lowercase text-white" for="foto">Foto</label>
                     <input type="text"
                         class="shadow form-control "
-                        id="input_foto"
-                        name="input_foto"
-                        placeholder="Foto">
+                        id="foto" name="foto"
+                        aria-describedby="foto"
+                        placeholder="Introduce la url de la foto">
+                    <?php if (!empty($errores) && isset($errores["error_foto"])): ?><small id="fotoError" class="form-text text-danger fw-bold"><?= $errores["error_foto"] ?></small><?php endif; ?>
                 </div>
-                <div class="form-group">
-                    <label for="input_tatuador">Creado en</label>
-                    <input type="time"
-                        class="shadow form-control "
-                        id="input_creado_en"
-                        name="input_ctrado_en"
-                        placeholder="Creado en">
-                </div>
-                <div class="form-group container__btns-form">
+                <div class="container__btns-form">
                     <button type="submit" class="btn btn-primary btns-form__btn-enviar">Enviar</button>
                     <button type="reset" class="btn btn-danger">Borrar</button>
                 </div>
             </div>
         </form>
+        <?php if (!empty($errores) && isset($errores["error_db"])): ?>
+            <p id="bdError" class="text-danger"><?= $errores["error_db"] ?></p>
+        <?php endif; ?>
     </main>
 </body>
 
@@ -84,4 +72,4 @@
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="./public/js/datepickerinitialzr.js"></script>
+<script src="../public/js/datepickerinitialzr.js"></script>

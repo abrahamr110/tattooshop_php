@@ -16,12 +16,10 @@ class TatuadorController{
     public function insertTatuador($datos=[]){
         //EXTRAER LOS DATOS DEL FORMULARIO Y ALMACENARLOS EN VARIABLES
         
-        $input_id = $datos["input_id"] ?? "";
-        $input_nombre = $datos["input_nombre"] ?? "";
-        $input_email = $datos["input_email"] ?? "";
-        $input_password = $datos["input_password"] ?? "";
-        $input_foto = $datos["input_foto"] ?? "";
-        $input_creado_en = $datos["input_creado_en"] ?? "";
+        $input_nombre = $datos["nombre"] ?? "";
+        $input_email = $datos["email"] ?? "";
+        $input_password = $datos["password"] ?? "";
+        $input_foto = $datos["foto"] ?? "";
 
         // COMPROBAMOS SI LOS DATOS DEL FORMULARIO SON CORRECTOS -> SI NO VIENEN VACIOS
         $errores = [];
@@ -62,7 +60,7 @@ class TatuadorController{
             $this->showAltaTatuador($errores);
         } else {
             // REGISTRAMOS EL TATUADOR
-            $operacionExitosa = $this->tatuadorModel->insertarTatuador($input_id, $input_nombre, $input_email, $input_password, $input_foto, $input_creado_en);
+            $operacionExitosa = $this->tatuadorModel->insertarTatuador($input_nombre, $input_email, $input_password, $input_foto);
 
             if ($operacionExitosa) {
                 // LLAMAR A UNA PÁGINA QUE MUESTRE UN MENSAJE DE ÉXITO
@@ -72,7 +70,6 @@ class TatuadorController{
                 $errores["error_db"] = "Error al insertar el tatuador, intentelo de nuevo más tarde";
                 $this->showAltaTatuador($errores);
             }
-
         }
 
     }

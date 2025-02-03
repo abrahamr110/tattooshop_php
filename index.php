@@ -43,19 +43,19 @@
                 break;
 
         case "/tattooshop_php/citas/alta":
-            session_start();
-            $usuarioController = new UsuarioController();
-            if(isset($_SESSION) || !isset($_SESSION["usuario"])){
+            // session_start();
+            // $usuarioController = new UsuarioController();
+            // if(isset($_SESSION) || !isset($_SESSION["usuario"])){
                 // MOSTRAMOS LA PAGINA DE LOGIN
-                $requestMethod = $_SERVER["REQUEST_METHOD"]; // va a ser GET o POST
+                // $requestMethod = $_SERVER["REQUEST_METHOD"]; // va a ser GET o POST
     
-                if ($requestMethod == "GET") {
-                    $usuarioController->showLogin();
-                } elseif ($requestMethod == "POST") {
-                    $datos = $_POST ?? [];
-                    $usuarioController->doLogin($datos);
-                }
-            }else{
+                // if ($requestMethod == "GET") {
+                //     $usuarioController->showLogin();
+                // } elseif ($requestMethod == "POST") {
+                //     $datos = $_POST ?? [];
+                //     $usuarioController->doLogin($datos);
+                // }
+            // }else{
                 $citaController = new CitaController();
                 $requestMethod = $_SERVER["REQUEST_METHOD"];  
                 
@@ -65,22 +65,22 @@
                     $datos = $_POST ?? [];
                     $citaController->insertCita($datos);
                 }
-            }                      
+            // }                      
             break;
         case "/tattooshop_php/tatuadores/alta":
-            session_start();
-            $usuarioController = new UsuarioController();
-            if(isset($_SESSION) || !isset($_SESSION["usuario"])){
-                // MOSTRAMOS LA PAGINA DE LOGIN
-                $requestMethod = $_SERVER["REQUEST_METHOD"]; // va a ser GET o POST
+            // session_start();
+            // $usuarioController = new UsuarioController();
+            // if(isset($_SESSION) || !isset($_SESSION["usuario"])){
+            //     // MOSTRAMOS LA PAGINA DE LOGIN
+            //     $requestMethod = $_SERVER["REQUEST_METHOD"]; // va a ser GET o POST
     
-                if ($requestMethod == "GET") {
-                    $usuarioController->showLogin();
-                } elseif ($requestMethod == "POST") {
-                    $datos = $_POST ?? [];
-                    $usuarioController->doLogin($datos);
-                }
-            }else{
+            //     if ($requestMethod == "GET") {
+            //         $usuarioController->showLogin();
+            //     } elseif ($requestMethod == "POST") {
+            //         $datos = $_POST ?? [];
+            //         $usuarioController->doLogin($datos);
+            //     }
+            // }else{
                 $tatuadorController=new TatuadorController();
                 $requestMethod = $_SERVER["REQUEST_METHOD"];
 
@@ -90,7 +90,7 @@
                     $datos = $_POST ?? [];
                     $tatuadorController->insertTatuador($datos);
                 }
-            }
+            // }
 
             break;
         case "/tattooshop_php/citas/confirmacion":

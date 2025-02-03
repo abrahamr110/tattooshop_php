@@ -27,7 +27,6 @@
          * @param mixed $email
          * @param mixed $password
          * @param mixed $foto
-         * @param mixed $creado_en
          * @return bool
          */
 
@@ -36,7 +35,7 @@
         public function getAllTatuadores() {
             try{
                 $this->conexion = $this->dbHandler->conectar();
-                $sql = "SELECT * FROM this.nombreTabla"; // seleccionamos todo
+                $sql = "SELECT * FROM $this->nombreTabla";
                 $stmt = $this->conexion->prepare($sql);
 
                 $tatuadores = [];
@@ -73,11 +72,11 @@
         
 
 
-        public function insertarTatuador($id,$nombre,$email,$password,$foto,$creado_en){
+        public function insertarTatuador($nombre,$email,$password,$foto){
             $this->conexion = $this->dbHandler->conectar();
-            $sql = "INSERT INTO ".$this->nombreTabla." (id,nombre,email,password,foto,creado_en) VALUES (?,?,?,?,?,?,?)";
+            $sql = "INSERT INTO $this->nombreTabla (nombre,email,password,foto) VALUES (?,?,?,?)";
             $stmt = $this->conexion->prepare($sql);
-            $stmt->bind_param("isssd",$id,$nombre,$email,$password,$foto,$creado_en);
+            $stmt->bind_param("ssss",$nombre,$email,$password,$foto);
 
             try {
                 return $stmt->execute(); // EXECUTE DEVUELVE UN TRUE O FALSE -> SI HA SIDO EXITOSA LA OPERACION O NO
